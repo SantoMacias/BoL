@@ -1,4 +1,8 @@
 function EvolveSpell(spID)
+	if (not VIP_USER) then
+		print('[EvolveSpell] Non-VIP Not Supported!');
+	end;
+	
 	local pOffsets = {
 		[_Q] = {0x7D, 0x07},
 		[_W] = {0x12, 0x06},
