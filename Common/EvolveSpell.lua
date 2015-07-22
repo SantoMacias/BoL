@@ -10,7 +10,7 @@ function EvolveSpell(spID)
 		[_R] = {0x9C, 0x04},
 	};
 	
-	local eP = CLoLPacket(0x00A2)
+	local eP = CLoLPacket(0x00A2);
 	eP.vTable = 0xF72190;
 	eP:EncodeF(myHero.networkID);
 	eP:Encode1(pOffsets[spID][1]);
