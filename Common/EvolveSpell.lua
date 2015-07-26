@@ -1,3 +1,4 @@
+-- LoL Patch: 5.14
 function EvolveSpell(spID)
 	if (not VIP_USER) then
 		print('[EvolveSpell] Non-VIP Not Supported!');
