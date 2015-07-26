@@ -1,3 +1,4 @@
+-- LoL Patch: 5.14
 local spellRanges = {
 	['aatrox'] = {
 		['q'] = {600, 600, 600, 600, 600},
