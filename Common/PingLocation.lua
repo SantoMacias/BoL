@@ -71,15 +71,3 @@ function PingLocation(theLocation, pingType)
 	
 	SendPacket(eP);
 end;
-
---[[
-
-  Example Usage
-  
-  PingLocation('Mid', 'Enemy Missing');
-  PingLocation('Baron', 'Danger');
-  PingLocation('Dragon', 'On My Way');
-  PingLocation('Our Blue', 'Assist Me');
-  PingLocation('Enemy Red', 'Retreat');
-
-]]--
