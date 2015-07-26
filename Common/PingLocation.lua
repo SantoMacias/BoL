@@ -24,15 +24,15 @@ function PingLocation(theLocation, pingType)
 	};
 	
 	if (GetMyHero().team == TEAM_BLUE) then
-		locationsH['OurBlue'] = teamBlueH['Blue'];
-		locationsH['OurRed'] = teamBlueH['Red'];
-		locationsH['EnemyBlue'] = teamRedH['Blue'];
-		locationsH['EnemyRed'] = teamRedH['Red'];
+		locationsH['Our Blue'] = teamBlueH['Blue'];
+		locationsH['Our Red'] = teamBlueH['Red'];
+		locationsH['Enemy Blue'] = teamRedH['Blue'];
+		locationsH['Enemy Red'] = teamRedH['Red'];
 	elseif (GetMyHero().team == TEAM_RED) then
-		locationsH['OurBlue'] = teamRedH['Blue'];
-		locationsH['OurRed'] = teamRedH['Red'];
-		locationsH['EnemyBlue'] = teamBlueH['Blue'];
-		locationsH['EnemyRed'] = teamBlueH['Red'];
+		locationsH['Our Blue'] = teamRedH['Blue'];
+		locationsH['Our Red'] = teamRedH['Red'];
+		locationsH['Enemy Blue'] = teamBlueH['Blue'];
+		locationsH['Enemy Red'] = teamBlueH['Red'];
 	end;
 	
 	if (locationsH[theLocation] == nil) then
@@ -79,7 +79,7 @@ end;
   PingLocation('Mid', 'Enemy Missing');
   PingLocation('Baron', 'Danger');
   PingLocation('Dragon', 'On My Way');
-  PingLocation('OurBlue', 'Assist Me');
-  PingLocation('EnemyRed', 'Retreat');
+  PingLocation('Our Blue', 'Assist Me');
+  PingLocation('Enemy Red', 'Retreat');
 
 ]]--
