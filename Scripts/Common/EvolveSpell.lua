@@ -1,4 +1,5 @@
 -- LoL Patch: 5.14
+-- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
 function EvolveSpell(spID)
 	if (not VIP_USER) then
 		print('[EvolveSpell] Non-VIP Not Supported!');
