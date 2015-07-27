@@ -195,6 +195,7 @@ function DoInsec()
 		if (myTarget.charName ~= lastTarget) then
 			lastTarget = myTarget.charName;
 			doKick = false;
+			doFlash = false;
 			checkFL = false;
 			checkW = false;
 		end;
@@ -202,6 +203,7 @@ function DoInsec()
 		myTarget = nil;
 		lastTarget = nil;
 		doKick = false;
+		doFlash = false;
 		checkFL = false;
 		checkW = false;
 	end;
