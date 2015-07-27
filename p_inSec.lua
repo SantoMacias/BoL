@@ -1,3 +1,4 @@
+-- LoL Patch: 5.14
 if (not VIP_USER) then
 	print('<font color="#FF1493"><b>[p_inSec]</b> </font><font color="#FF0000">Non-VIP Not Supported</font>');
 	return;
@@ -278,13 +279,13 @@ function GetAllyToPoint(whoTarget)
 	for I = 1, heroManager.iCount do
 		local tempTarget = heroManager:getHero(I);
 		if ((tempTarget.team == myHero.team) and (tempTarget.charName ~= myHero.charName)) then
-			if ((tempTarget.dead == false) and (GetDistance(myHero, tempTarget) <= 2000) and (GetDistance(whoTarget, tempTarget) >= 400)) then
+			if ((tempTarget.dead == false) and (GetDistance(myHero, tempTarget) <= 1200) and (GetDistance(whoTarget, tempTarget) >= 400)) then
 				return tempTarget;
 			end;
 		end;
 	end;
 	
-	local closestAllyTower = GetClosestAllyTower(2000);
+	local closestAllyTower = GetClosestAllyTower(1200);
 	if (closestAllyTower ~= nil) then
 		return closestAllyTower;
 	end;
