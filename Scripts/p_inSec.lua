@@ -192,6 +192,7 @@ function DoInsec()
 			allyPointed = GetAllyToPoint(myTarget);
 			behindTarget = GetLocationBehindTarget(myTarget, allyPointed);
 		end;
+		
 		if (myTarget.charName ~= lastTarget) then
 			lastTarget = myTarget.charName;
 			doKick = false;
@@ -212,6 +213,7 @@ function DoInsec()
 		if (theMenu.insecKeyInverted) then
 			checkFL = false;
 			checkW = false;
+			doKick = false;
 		end;
 	
 		if ((theMenu.followMouse) and (not doKick) and (not checkW) and (not checkFL)) then
@@ -219,7 +221,7 @@ function DoInsec()
 				timeMoveCalled = GetTickCount();
 				if (GetDistance(myHero, mousePos) >= 100) then
 					if (behindTarget ~= nil) then
-						if ((GetDistance(myHero, behindTarget) >= 200) and (GetDistance(myHero, myTarget) >= 400)) then
+						if ((GetDistance(myHero, behindTarget) >= 200) and (GetDistance(myHero, myTarget) >= 300)) then
 							myHero:MoveTo(mousePos.x , mousePos.z);
 						end;
 					else
