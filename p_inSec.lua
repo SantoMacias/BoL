@@ -84,9 +84,9 @@ function OnProcessSpell(theUnit, theSpell)
 	if (theUnit.networkID == myHero.networkID) then
 		if ((theSpell.name:lower() == 'blindmonkr') or (theSpell.name:lower() == 'blindmonkrkick')) then
 			doKick = false;
-				if (doFlash) then
-					CastSpell(flashSpell, behindTarget.x, behindTarget.z);
-				end;
+			if (doFlash) then
+				CastSpell(flashSpell, behindTarget.x, behindTarget.z);
+			end;
 		elseif (((theSpell.name:lower() == 'blindmonkwone') or (theSpell.name:lower() == 'blindmonkwonechaos')) and (checkW)) then
 				checkW = false;
 				doKick = true;
@@ -149,8 +149,10 @@ function DoInsec()
 	local tempTarget = GetTarget();
 	if ((tempTarget ~= nil) and (tempTarget.team ~= myHero.team) and (tempTarget.type ~= 'obj_AI_Minion') and (tempTarget.type ~= 'obj_AI_Turret') and (tempTarget.valid) and (ValidTarget(tempTarget, 2500))) then
 		myTarget = GetTarget();
-		allyPointed = GetAllyToPoint(myTarget);
-		behindTarget = GetLocationBehindTarget(myTarget, allyPointed);
+		if (((not checkW) and (not checkFL) and (not doFlash)) or (myTarget.charName ~= lastTarget)) then
+			allyPointed = GetAllyToPoint(myTarget);
+			behindTarget = GetLocationBehindTarget(myTarget, allyPointed);
+		end;
 		if (myTarget.charName ~= lastTarget) then
 			lastTarget = myTarget.charName;
 			doKick = false;
@@ -175,7 +177,13 @@ function DoInsec()
 			if ((GetTickCount() - timeMoveCalled) > moveDelay) then
 				timeMoveCalled = GetTickCount();
 				if (GetDistance(myHero, mousePos) >= 100) then
-					myHero:MoveTo(mousePos.x , mousePos.z);
+					if (behindTarget ~= nil) then
+						if (GetDistance(myHero, behindTarget) >= 400) then
+							myHero:MoveTo(mousePos.x , mousePos.z);
+						end;
+					else
+						myHero:MoveTo(mousePos.x , mousePos.z);
+					end;
 				end;
 			end;
 		end;
