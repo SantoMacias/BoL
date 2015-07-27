@@ -1,4 +1,5 @@
 -- LoL Patch: 5.14
+-- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
 function PingLocation(theLocation, pingType)
 	if ((GetGame().map.index ~= 11) and (GetGame().map.index ~= 15)) then
 		print('[PingLocation] Map Not Supported');
