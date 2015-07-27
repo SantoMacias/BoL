@@ -23,6 +23,7 @@ local lastTarget = nil;
 local doKick = false;
 local checkW = false;
 local checkFL = false;
+local doFlash = false;
 local timeInsecCalled = 0;
 local timeKickCalled = 0;
 local timeMoveCalled = 0;
@@ -81,14 +82,22 @@ end;
 
 function OnProcessSpell(theUnit, theSpell)
 	if (theUnit.networkID == myHero.networkID) then
-		if (theSpell.name:lower() == 'blindmonkr') then
+		if ((theSpell.name:lower() == 'blindmonkr') or (theSpell.name:lower() == 'blindmonkrkick')) then
 			doKick = false;
-		elseif ((theSpell.name:lower() == 'blindmonkwone') and (checkW)) then
+				if (doFlash) then
+					CastSpell(flashSpell, behindTarget.x, behindTarget.z);
+				end;
+		elseif (((theSpell.name:lower() == 'blindmonkwone') or (theSpell.name:lower() == 'blindmonkwonechaos')) and (checkW)) then
 				checkW = false;
 				doKick = true;
-		elseif ((theSpell.name:lower() == 'summonerflash') and (checkFL)) then
-				checkFL = false;
-				doKick = true;
+		elseif ((theSpell.name:lower() == 'summonerflash') and (checkFL) or (doFlash)) then
+				if (checkFL) then
+					checkFL = false;
+					doKick = true;
+				end;
+				if (doFlash) then
+					doFlash = false;
+				end;
 		end;
 	end;
 end;
@@ -126,7 +135,8 @@ end;
 
 function InitMenu()
 	theMenu = scriptConfig('p_inSec', 'PvPSuite')
-	theMenu:addParam('insecKey', 'inSec Key', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('T'))
+	theMenu:addParam('insecKey', 'inSec Key (Normal)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('T'))
+	theMenu:addParam('insecKeyInverted', 'inSec Key (Inverted)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('H'))
 	theMenu:addParam('useQ', 'Use Q', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useSmite', 'Use Smite', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useWards', 'Use Wards', SCRIPT_PARAM_ONOFF, true);
@@ -155,7 +165,12 @@ function DoInsec()
 		checkW = false;
 	end;
 
-	if (theMenu.insecKey) then
+	if ((theMenu.insecKey) or (theMenu.insecKeyInverted)) then
+		if (theMenu.insecKeyInverted) then
+			checkFL = false;
+			checkW = false;
+		end;
+	
 		if ((theMenu.followMouse) and (not doKick) and (not checkW) and (not checkFL)) then
 			if ((GetTickCount() - timeMoveCalled) > moveDelay) then
 				timeMoveCalled = GetTickCount();
@@ -172,13 +187,17 @@ function DoInsec()
 				local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
 				
 				if (myTarget ~= nil) and (GetDistance(myHero, myTarget) <= 1000) then
-					if (doKick) then
-						if ((GetTickCount() - timeKickCalled) > kickDelay) then
+					if ((doKick) or ((theMenu.insecKeyInverted) and (theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY) and (GetDistance(myHero, behindTarget) <= 400))) then
+						if (theMenu.insecKeyInverted) then
 							CastSpell(_R, myTarget);
-							timeKickCalled = GetTickCount();
+							doFlash = true;
+						else
+							if ((GetTickCount() - timeKickCalled) > kickDelay) then
+								CastSpell(_R, myTarget);
+								timeKickCalled = GetTickCount();
+							end;
 						end;
 					elseif ((not checkFL) and (not checkW)) then
-					
 						if (GetDistance(myHero, myTarget) >= 401) then
 							if ((theMenu.useQ) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))))  then
 								if (myHero:GetSpellData(_Q).name:lower() == 'blindmonkqone') then
@@ -204,10 +223,9 @@ function DoInsec()
 									end;
 								end;
 							end;
-						elseif (GetDistance(myHero, behindTarget) <= 400) then
+						elseif ((GetDistance(myHero, behindTarget) <= 400) and (theMenu.insecKey)) then
 							if (GetDistance(myHero, behindTarget) >= 101) then
 								if ((theMenu.useWards) or (theMenu.useFlash)) then
-									local skipFlash = false;
 									if (theMenu.useWards) then
 										local closestWard = GetClosestWard(behindTarget, myTarget);
 										if (canUseW) then
@@ -240,6 +258,7 @@ function DoInsec()
 				end;
 			else
 				doKick = false;
+				doFlash = false;
 				checkFL = false;
 				checkW = false;
 			end;
@@ -279,13 +298,13 @@ function GetAllyToPoint(whoTarget)
 	for I = 1, heroManager.iCount do
 		local tempTarget = heroManager:getHero(I);
 		if ((tempTarget.team == myHero.team) and (tempTarget.charName ~= myHero.charName)) then
-			if ((tempTarget.dead == false) and (GetDistance(myHero, tempTarget) <= 1200) and (GetDistance(whoTarget, tempTarget) >= 400)) then
+			if ((tempTarget.dead == false) and (GetDistance(myHero, tempTarget) <= 1000) and (GetDistance(whoTarget, tempTarget) >= 400)) then
 				return tempTarget;
 			end;
 		end;
 	end;
 	
-	local closestAllyTower = GetClosestAllyTower(1200);
+	local closestAllyTower = GetClosestAllyTower(1000);
 	if (closestAllyTower ~= nil) then
 		return closestAllyTower;
 	end;
