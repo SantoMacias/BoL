@@ -1,4 +1,5 @@
 -- LoL Patch: 5.14 (Irrelevant)
+-- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
 local originalKD = _G.IsKeyDown;
 _G.IsKeyDown = function(theKey)
 	if (type(theKey) ~= 'number') then
