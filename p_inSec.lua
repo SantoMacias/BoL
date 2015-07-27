@@ -200,7 +200,7 @@ function DoInsec()
 				local wardSlot = GetWardSlot();
 				local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
 				
-				if (myTarget ~= nil) and (GetDistance(myHero, myTarget) <= 1000) then
+				if (myTarget ~= nil) and (GetDistance(myHero, myTarget) <= 850) then
 					if ((doKick) or ((theMenu.insecKeyInverted) and (theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY) and (GetDistance(myHero, behindTarget) <= 400))) then
 						if (theMenu.insecKeyInverted) then
 							CastSpell(_R, myTarget);
@@ -216,7 +216,7 @@ function DoInsec()
 							if ((theMenu.useQ) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))))  then
 								if (myHero:GetSpellData(_Q).name:lower() == 'blindmonkqone') then
 									if (myHero:CanUseSpell(_Q) == READY) then
-										if (GetDistance(myHero, myTarget) <= 1000) then
+										if (GetDistance(myHero, myTarget) <= 850) then
 											local minionCollide, minionsCollision = _QCollision:GetMinionCollision(myHero, myTarget);
 											local heroesCollide, heroesCollision = _QCollision:GetHeroCollision(myHero, myTarget);
 											if ((theMenu.useSmite) and (smiteSpell ~= nil) and (not heroesCollide) and (minionCollide)) then
