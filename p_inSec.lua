@@ -72,12 +72,14 @@ function OnDraw()
 	if ((theMenu.drawCircles) and (not doKick) and (not doFlash) and (not checkW) and (not checkFL)) then
 		if (myHero:CanUseSpell(_R) == READY) then
 			if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
-				local wardSlot = GetWardSlot();
-				local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
-				if (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))) then
-					DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGB(255, 0, 0), 100);
-					DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGB(0, 255, 0), 100);
-					DrawCircle3D(behindTarget.x, behindTarget.y, behindTarget.z, 40, 3, RGB(255, 255, 0), 100);
+				if (GetDistance(myHero, behindTarget) >= 300) then
+					local wardSlot = GetWardSlot();
+					local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
+					if (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))) then
+						DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGB(255, 0, 0), 100);
+						DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGB(0, 255, 0), 100);
+						DrawCircle3D(behindTarget.x, behindTarget.y, behindTarget.z, 40, 3, RGB(255, 255, 0), 100);
+					end;
 				end;
 			end;
 		end;
@@ -310,7 +312,7 @@ function GetAllyToPoint(whoTarget)
 	for I = 1, heroManager.iCount do
 		local tempTarget = heroManager:getHero(I);
 		if ((tempTarget.team == myHero.team) and (tempTarget.charName ~= myHero.charName)) then
-			if ((tempTarget.dead == false) and (GetDistance(myHero, tempTarget) <= 1000) and (GetDistance(whoTarget, tempTarget) >= 400)) then
+			if ((tempTarget.dead == false) and (GetDistance(whoTarget, tempTarget) <= 1000) and (GetDistance(whoTarget, tempTarget) >= 300)) then
 				return tempTarget;
 			end;
 		end;
