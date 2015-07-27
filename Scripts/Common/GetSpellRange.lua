@@ -1,4 +1,5 @@
 -- LoL Patch: 5.14
+-- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
 local spellRanges = {
 	['aatrox'] = {
 		['q'] = {600, 600, 600, 600, 600},
