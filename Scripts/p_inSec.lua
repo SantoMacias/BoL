@@ -1,4 +1,5 @@
 -- LoL Patch: 5.14
+-- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
 if (not VIP_USER) then
 	print('<font color="#FF1493"><b>[p_inSec]</b> </font><font color="#FF0000">Non-VIP Not Supported</font>');
 	return;
@@ -171,7 +172,7 @@ function OnDeleteObj(theObject)
 end;
 
 function InitMenu()
-	theMenu = scriptConfig('p_inSec', 'PvPSuite');
+	theMenu = scriptConfig('p_inSec', 'p_inSec');
 	theMenu:addParam('insecKey', 'inSec Key (Normal)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('T'));
 	theMenu:addParam('insecKeyInverted', 'inSec Key (Inverted)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('H'));
 	theMenu:addParam('followMouse', 'Follow Mouse', SCRIPT_PARAM_ONOFF, true);
