@@ -182,7 +182,7 @@ function DoInsec()
 				timeMoveCalled = GetTickCount();
 				if (GetDistance(myHero, mousePos) >= 100) then
 					if (behindTarget ~= nil) then
-						if (GetDistance(myHero, behindTarget) >= 400) then
+						if ((GetDistance(myHero, behindTarget) >= 200) and (GetDistance(myHero, myTarget) >= 400)) then
 							myHero:MoveTo(mousePos.x , mousePos.z);
 						end;
 					else
