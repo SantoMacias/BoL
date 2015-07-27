@@ -75,7 +75,7 @@ function OnDraw()
 				if (myHero:CanUseSpell(_R) == READY) then
 					if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
 						local wardSlot = GetWardSlot();
-						local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
+						local canUseW = ((myHero:CanUseSpell(_W) == READY) and ((myHero:GetSpellData(_W).name:lower() == 'blindmonkwone') or (myHero:GetSpellData(_W).name:lower() == 'blindmonkwonechaos')));
 						if ((GetDistance(myHero, behindTarget) >= 200) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW)))) then
 							if (theMenu.drawCircles) then
 								DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGBA(255, 0, 0, 254), 100);
@@ -119,7 +119,7 @@ end;
 
 function OnProcessSpell(theUnit, theSpell)
 	if (theUnit.networkID == myHero.networkID) then
-		if ((theSpell.name:lower() == 'blindmonkr') or (theSpell.name:lower() == 'blindmonkrkick')) then
+		if ((theSpell.name:lower() == 'blindmonkr') or (theSpell.name:lower() == 'blindmonkrchaos') or (theSpell.name:lower() == 'blindmonkrkick') or (theSpell.name:lower() == 'blindmonkrkickchaos')) then
 			doKick = false;
 			if (doFlash) then
 				CastSpell(flashSpell, behindTarget.x, behindTarget.z);
@@ -233,7 +233,7 @@ function DoInsec()
 			timeInsecCalled = GetTickCount();
 			if (myHero:CanUseSpell(_R) == READY) then
 				local wardSlot = GetWardSlot();
-				local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
+				local canUseW = ((myHero:CanUseSpell(_W) == READY) and ((myHero:GetSpellData(_W).name:lower() == 'blindmonkwone') or (myHero:GetSpellData(_W).name:lower() == 'blindmonkwonechaos')));
 				
 				if (myTarget ~= nil) and (GetDistance(myHero, myTarget) <= 850) then
 					if ((doKick) or ((theMenu.insecKeyInverted) and (theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY) and (GetDistance(myHero, behindTarget) <= 400))) then
@@ -249,7 +249,7 @@ function DoInsec()
 					elseif ((not checkFL) and (not checkW)) then
 						if (GetDistance(myHero, myTarget) >= 401) then
 							if ((theMenu.useQ) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))))  then
-								if (myHero:GetSpellData(_Q).name:lower() == 'blindmonkqone') then
+								if ((myHero:GetSpellData(_Q).name:lower() == 'blindmonkqone') or (myHero:GetSpellData(_Q).name:lower() == 'blindmonkqonechaos')) then
 									if (myHero:CanUseSpell(_Q) == READY) then
 										if (GetDistance(myHero, myTarget) <= 850) then
 											local minionCollide, minionsCollision = _QCollision:GetMinionCollision(myHero, myTarget);
@@ -266,7 +266,7 @@ function DoInsec()
 											end;
 										end;
 									end;
-								elseif (myHero:GetSpellData(_Q).name:lower() == 'blindmonkqtwo') then
+								elseif ((myHero:GetSpellData(_Q).name:lower() == 'blindmonkqtwo') or (myHero:GetSpellData(_Q).name:lower() == 'blindmonkqtwochaos')) then
 									if ((GetBuff('blindmonkqone', myTarget) ~= nil) or (GetBuff('blindmonkqonechaos', myTarget) ~= nil)) then
 										CastSpell(_Q, myTarget);
 									end;
