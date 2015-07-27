@@ -171,9 +171,10 @@ function OnDeleteObj(theObject)
 end;
 
 function InitMenu()
-	theMenu = scriptConfig('p_inSec', 'PvPSuite')
-	theMenu:addParam('insecKey', 'inSec Key (Normal)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('T'))
-	theMenu:addParam('insecKeyInverted', 'inSec Key (Inverted)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('H'))
+	theMenu = scriptConfig('p_inSec', 'PvPSuite');
+	theMenu:addParam('insecKey', 'inSec Key (Normal)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('T'));
+	theMenu:addParam('insecKeyInverted', 'inSec Key (Inverted)', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('H'));
+	theMenu:addParam('followMouse', 'Follow Mouse', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useQ', 'Use Q', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useSmite', 'Use Smite', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useWards', 'Use Wards', SCRIPT_PARAM_ONOFF, true);
@@ -181,7 +182,6 @@ function InitMenu()
 	theMenu:addParam('drawRange', 'Draw Range', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('drawCollision', 'Draw Collision', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('drawCircles', 'Draw Circles', SCRIPT_PARAM_ONOFF, true);
-	theMenu:addParam('followMouse', 'Follow Mouse', SCRIPT_PARAM_ONOFF, true);
 end;
 
 function DoInsec()
