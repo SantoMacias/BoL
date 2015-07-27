@@ -76,7 +76,7 @@ function OnDraw()
 					if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
 						local wardSlot = GetWardSlot();
 						local canUseW = ((myHero:CanUseSpell(_W) == READY) and ((myHero:GetSpellData(_W).name:lower() == 'blindmonkwone') or (myHero:GetSpellData(_W).name:lower() == 'blindmonkwonechaos')));
-						if ((GetDistance(myHero, behindTarget) >= 200) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW)))) then
+						if ((GetDistance(myHero, behindTarget) >= 100) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW)))) then
 							if (theMenu.drawCircles) then
 								DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGBA(255, 0, 0, 254), 100);
 								DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGBA(0, 255, 0, 254), 100);
