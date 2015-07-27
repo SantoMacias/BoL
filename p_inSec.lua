@@ -100,6 +100,8 @@ function OnDraw()
 												theColor = RGBA(0, 255, 0, 254);
 										end;
 										DrawLine3D(myHero.x, myHero.y, myHero.z, myTarget.x, myTarget.y, myTarget.z, 2, theColor);
+										DrawCircle3D(myHero.x, myHero.y, myHero.z, 10, 3, theColor, 100);
+										DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 10, 3, theColor, 100);
 									end;
 									
 									if (theMenu.drawRange) then
