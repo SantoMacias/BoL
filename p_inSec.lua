@@ -69,7 +69,7 @@ function OnTick()
 end;
 
 function OnDraw()
-	if ((theMenu.drawCircles) and (not doKick) and (not doFlash)) then
+	if ((theMenu.drawCircles) and (not doKick) and (not doFlash) and (not checkW) and (not checkFL)) then
 		if (myHero:CanUseSpell(_R) == READY) then
 			if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
 				local wardSlot = GetWardSlot();
