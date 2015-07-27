@@ -69,12 +69,16 @@ function OnTick()
 end;
 
 function OnDraw()
-	if ((theMenu.drawCircles) and (not doKick)) then
+	if ((theMenu.drawCircles) and (not doKick) and (not doFlash)) then
 		if (myHero:CanUseSpell(_R) == READY) then
 			if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
-				DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGB(255, 0, 0), 100);
-				DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGB(0, 255, 0), 100);
-				DrawCircle3D(behindTarget.x, behindTarget.y, behindTarget.z, 40, 3, RGB(255, 255, 0), 100);
+				local wardSlot = GetWardSlot();
+				local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
+				if (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))) then
+					DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGB(255, 0, 0), 100);
+					DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGB(0, 255, 0), 100);
+					DrawCircle3D(behindTarget.x, behindTarget.y, behindTarget.z, 40, 3, RGB(255, 255, 0), 100);
+				end;
 			end;
 		end;
 	end;
