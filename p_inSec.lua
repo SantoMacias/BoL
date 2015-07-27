@@ -69,16 +69,45 @@ function OnTick()
 end;
 
 function OnDraw()
-	if ((theMenu.drawCircles) and (not doKick) and (not doFlash) and (not checkW) and (not checkFL)) then
-		if (myHero:CanUseSpell(_R) == READY) then
-			if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
-				if (GetDistance(myHero, behindTarget) >= 300) then
-					local wardSlot = GetWardSlot();
-					local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
-					if (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW))) then
-						DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGB(255, 0, 0), 100);
-						DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGB(0, 255, 0), 100);
-						DrawCircle3D(behindTarget.x, behindTarget.y, behindTarget.z, 40, 3, RGB(255, 255, 0), 100);
+	if (not myHero.dead) then
+		if ((theMenu.drawCircles) or (theMenu.drawCollision) or (theMenu.drawRange)) then
+			if ((not doKick) and (not doFlash) and (not checkW) and (not checkFL)) then
+				if (myHero:CanUseSpell(_R) == READY) then
+					if ((myTarget ~= nil) and (behindTarget ~= nil) and (allyPointed ~= nil)) then
+						local wardSlot = GetWardSlot();
+						local canUseW = ((myHero:CanUseSpell(_W) == READY) and (myHero:GetSpellData(_W).name:lower() == 'blindmonkwone'));
+						if ((GetDistance(myHero, behindTarget) >= 200) and (((theMenu.useFlash) and (flashSpell ~= nil) and (myHero:CanUseSpell(flashSpell) == READY)) or ((theMenu.useWards) and (wardSlot ~= nil) and (canUseW)))) then
+							if (theMenu.drawCircles) then
+								DrawCircle3D(myTarget.x, myTarget.y, myTarget.z, 100, 3, RGBA(255, 0, 0, 254), 100);
+								DrawCircle3D(allyPointed.x, allyPointed.y, allyPointed.z, 100, 3, RGBA(0, 255, 0, 254), 100);
+								DrawCircle3D(behindTarget.x, behindTarget.y, behindTarget.z, 40, 3, RGBA(255, 255, 0, 254), 100);
+							end;
+							
+							if ((theMenu.drawCollision) or (theMenu.drawRange)) then
+								if (myHero:CanUseSpell(_Q) == READY) then
+									if ((GetDistance(myHero, myTarget) <= 850) and (theMenu.drawCollision)) then
+										local theColor = RGBA(255, 0, 0, 254);
+										local minionCollide, minionsCollision = _QCollision:GetMinionCollision(myHero, myTarget);
+										local heroesCollide, heroesCollision = _QCollision:GetHeroCollision(myHero, myTarget);
+										if ((theMenu.useSmite) and (smiteSpell ~= nil) and (not heroesCollide) and (minionCollide)) then
+											if ((myHero:CanUseSpell(smiteSpell) == READY) and (#minionsCollision == 1)) then
+												local theMinion = minionsCollision[1];
+												if (theMinion.health <= smiteDamage) then
+													theColor = RGBA(255, 255, 0, 254);
+												end;
+											end;
+										elseif ((not minionCollide) and (not heroesCollide)) then
+												theColor = RGBA(0, 255, 0, 254);
+										end;
+										DrawLine3D(myHero.x, myHero.y, myHero.z, myTarget.x, myTarget.y, myTarget.z, 2, theColor);
+									end;
+									
+									if (theMenu.drawRange) then
+										DrawCircle3D(myHero.x, myHero.y, myHero.z, 850, 3, RGBA(13, 152, 186, 254), 100);
+									end;
+								end;
+							end;
+						end;
 					end;
 				end;
 			end;
@@ -147,6 +176,8 @@ function InitMenu()
 	theMenu:addParam('useSmite', 'Use Smite', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useWards', 'Use Wards', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('useFlash', 'Use Flash', SCRIPT_PARAM_ONOFF, true);
+	theMenu:addParam('drawRange', 'Draw Range', SCRIPT_PARAM_ONOFF, true);
+	theMenu:addParam('drawCollision', 'Draw Collision', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('drawCircles', 'Draw Circles', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('followMouse', 'Follow Mouse', SCRIPT_PARAM_ONOFF, true);
 end;
