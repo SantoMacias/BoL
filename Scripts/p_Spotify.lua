@@ -92,33 +92,33 @@ end;
 function OnDraw()
 	if ((theMenu.showPlayer) and (readyToShow)) then
 		if (backgroundSprite ~= nil) then
-			backgroundSprite:Draw(theMenu.drawW, theMenu.drawH, 255);
+			backgroundSprite:Draw(theMenu.drawW, theMenu.drawH, theMenu.playerOpacity);
 		end;
 		
 		if (volumeUpSprite ~= nil) then
-			volumeUpSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) + (buttonSpacingW * 2)), (theMenu.drawH + buttonMarginTop- buttonH), 255);
+			volumeUpSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) + (buttonSpacingW * 2)), (theMenu.drawH + buttonMarginTop- buttonH), theMenu.playerOpacity);
 		end;
 		
 		if (nextSprite ~= nil) then
-			nextSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) + buttonSpacingW), (theMenu.drawH + buttonMarginTop - buttonH), 255);
+			nextSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) + buttonSpacingW), (theMenu.drawH + buttonMarginTop - buttonH), theMenu.playerOpacity);
 		end;
 		
 		if (isPaused) then
 			if (playSprite ~= nil) then
-				playSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2)), (theMenu.drawH + buttonMarginTop - buttonH), 255);
+				playSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2)), (theMenu.drawH + buttonMarginTop - buttonH), theMenu.playerOpacity);
 			end;
 		else
 			if (pauseSprite ~= nil) then
-				pauseSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2)), (theMenu.drawH + buttonMarginTop - buttonH), 255);
+				pauseSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2)), (theMenu.drawH + buttonMarginTop - buttonH), theMenu.playerOpacity);
 			end;
 		end;
 		
 		if (previousSprite ~= nil) then
-			previousSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) - buttonSpacingW), (theMenu.drawH + buttonMarginTop- buttonH), 255);
+			previousSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) - buttonSpacingW), (theMenu.drawH + buttonMarginTop- buttonH), theMenu.playerOpacity);
 		end;
 		
 		if (volumeDownSprite ~= nil) then
-			volumeDownSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) - (buttonSpacingW * 2)), (theMenu.drawH + buttonMarginTop- buttonH), 255);
+			volumeDownSprite:Draw((theMenu.drawW + (backgroundW / 2) - (buttonW / 2) - (buttonSpacingW * 2)), (theMenu.drawH + buttonMarginTop- buttonH), theMenu.playerOpacity);
 		end;
 		
 		local theSong = 'No Song Playing';
@@ -144,8 +144,8 @@ function OnDraw()
 		end;
 		local theSongW = getStringHitbox(theSong);
 		local theArtistW = getStringHitbox(theArtist);
-		DrawText(theSong, 12, (theMenu.drawW + (backgroundW / 2) - (theSongW / 2)), theMenu.drawH + 5, RGBA(255, 255, 255, 255));
-		DrawText(theArtist, 14, (theMenu.drawW + (backgroundW / 2) - (theArtistW / 2)), theMenu.drawH + 20, RGBA(255, 255, 255, 255));
+		DrawText(theSong, 12, (theMenu.drawW + (backgroundW / 2) - (theSongW / 2)), theMenu.drawH + 5, RGBA(255, 255, 255, theMenu.playerOpacity));
+		DrawText(theArtist, 14, (theMenu.drawW + (backgroundW / 2) - (theArtistW / 2)), theMenu.drawH + 20, RGBA(255, 255, 255, theMenu.playerOpacity));
 	end;
 end;
 
@@ -181,6 +181,7 @@ function InitMenu()
 	theMenu = scriptConfig('p_Spotify', 'p_Spotify');
 	theMenu:addParam('showPlayer', 'Show Spotify Player', SCRIPT_PARAM_ONOFF, true);
 	theMenu:addParam('reloadPlayer', 'Reload Spotify Player', SCRIPT_PARAM_ONKEYDOWN, false, GetKey('T'));
+	theMenu:addParam('playerOpacity', 'Spotify Player Opacity', SCRIPT_PARAM_SLICE, 255, 80, 255, 0);
 	theMenu:addParam('drawH', 'Screen H Position', SCRIPT_PARAM_SLICE, ((WINDOW_H - backgroundH) / 2), 0, (WINDOW_H - backgroundH), 0);
 	theMenu:addParam('drawW', 'Screen W Position', SCRIPT_PARAM_SLICE, ((WINDOW_W - backgroundW) / 2), 0, (WINDOW_W - backgroundW), 0);
 end;
