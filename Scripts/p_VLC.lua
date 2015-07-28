@@ -124,7 +124,7 @@ function OnDraw()
 			if ((lastPlayedSong ~= nil) and (lastPlayedSong ~= 'VLC media player') and (lastPlayedSong ~= '')) then
 				theArtist = '';
 				theSong = splitTable(lastPlayedSong, '-');
-				if (theSong[1] ~= nil) then
+				if ((theSong[1] ~= nil) and (#theSong > 1)) then
 					theArtist = theSong[1];
 					theSong = lastPlayedSong:gsub(theArtist .. '%-', '');
 					theSong = theSong:gsub('^[^a-zA-Z]+', '');
