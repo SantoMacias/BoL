@@ -764,8 +764,8 @@ function GetSpellName(charName, whatSpell)
 		print('[GetSpellName] Champion Not Found (' .. charName:lower() .. ')');
 	elseif (spellNames[charName:lower()][whatSpell:lower()] == nil) then
 		print('[GetSpellName] Spell Not Found (' .. whatSpell:lower() .. ', ' .. charName:lower() .. ')');
-	elseif (spellNames[charName:lower()][whatSpell:lower()] == 0) then
-		return nil;
+	else
+		return spellNames[charName:lower()][whatSpell:lower()];
 	end;
 	
 	return nil;
