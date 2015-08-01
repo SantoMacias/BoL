@@ -1,11 +1,28 @@
 -- LoL Patch: 5.14
 -- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
+
+local sVersion = '1.0';
+local rVersion = GetWebResult('raw.githubusercontent.com', '/pvpsuite/BoL/master/Versions/Scripts/Common/GetSpellName.version?no-cache=' .. math.random(1, 25000));
+
+if ((rVersion) and (tonumber(rVersion) ~= nil)) then
+	if (tonumber(sVersion) < tonumber(rVersion)) then
+		print('<font color="#FF1493"><b>[GetSpellName]</b> </font><font color="#FFFF00">An update has been found and it is now downloading!</font>');
+		DownloadFile('https://raw.githubusercontent.com/pvpsuite/BoL/master/Scripts/Common/GetSpellName.lua?no-cache=' .. math.random(1, 25000), (SCRIPT_PATH.. GetCurrentEnv().FILE_NAME), function()
+			print('<font color="#FF1493"><b>[GetSpellName]</b> </font><font color="#00FF00">Script successfully updated, please double-press F9 to reload!</font>');
+		end);
+		return;
+	end;
+else
+	print('<font color="#FF1493"><b>[GetSpellName]</b> </font><font color="#FF0000">Update Error</font>');
+end;
+
 local spellNames = {
 	['aatrox'] = {
 		['q'] = 'Dark \'Flight',
-		['w'] = 'Blood Thirst / Blood Price',
+		['w'] = 'Blood Thirst',
 		['e'] = 'Blades of Torment',
 		['r'] = 'Massacre',
+		['w2'] = 'Blood Price',
 	},
 	['ahri'] = {
 		['q'] = 'Orb of Deception',
@@ -134,10 +151,13 @@ local spellNames = {
 		['r'] = 'Chronobreak',
 	},
 	['elise'] = {
-		['q'] = 'Neurotoxin / Venomous Bite',
-		['w'] = 'Volatile Spiderling / Skittering Frenzy',
-		['e'] = 'Cocoon / Rappel',
+		['q'] = 'Neurotoxin',
+		['w'] = 'Volatile Spiderling',
+		['e'] = 'Cocoon',
 		['r'] = 'Spider Form',
+		['q2'] = 'Venomous Bite',
+		['w2'] = 'Skittering Frenzy',
+		['e2'] = 'Rappel',
 	},
 	['evelynn'] = {
 		['q'] = 'Hate Spike',
@@ -166,8 +186,9 @@ local spellNames = {
 	['fizz'] = {
 		['q'] = 'Urchin Strike',
 		['w'] = 'Seastone Trident',
-		['e'] = 'Playful / Trickster',
+		['e'] = 'Playful',
 		['r'] = 'Chum the Waters',
+		['e2'] = 'Trickster',
 	},
 	['galio'] = {
 		['q'] = 'Resolute Smite',
@@ -188,9 +209,12 @@ local spellNames = {
 		['r'] = 'Demacian Justice',
 	},
 	['gnar'] = {
-		['q'] = 'Boomerang Throw / Boulder Toss',
-		['w'] = 'Hyper / Wallop',
-		['e'] = 'Hop / Crunch',
+		['q'] = 'Boomerang Throw',
+		['w'] = 'Hyper',
+		['e'] = 'Hop',
+		['q2'] = 'Boulder Toss',
+		['w2'] = 'Wallop',
+		['e2'] = 'Crunch',
 		['r'] = 'GNAR!',
 	},
 	['gragas'] = {
@@ -242,10 +266,14 @@ local spellNames = {
 		['r'] = 'Grandmaster\'s Might',
 	},
 	['jayce'] = {
-		['q'] = 'To the Skies! / Shock Blast',
-		['w'] = 'Lightning Field / Hyper Charge',
-		['e'] = 'Thundering Blow / Acceleration Gate',
-		['r'] = 'Mercury Cannon / Mercury Hammer',
+		['q'] = 'To the Skies!',
+		['w'] = 'Lightning Field',
+		['e'] = 'Thundering Blow',
+		['r'] = 'Mercury Cannon',
+		['q2'] = 'Shock Blast',
+		['w2'] = 'Hyper Charge',
+		['e2'] = 'Acceleration Gate',
+		['r2'] = 'Mercury Hammer',
 	},
 	['jinx'] = {
 		['q'] = 'Switcheroo!',
@@ -314,10 +342,13 @@ local spellNames = {
 		['r'] = 'Mimic',
 	},
 	['leesin'] = {
-		['q'] = 'Sonic Wave / Resonating Strike',
-		['w'] = 'Safeguard / Iron Will',
-		['e'] = 'Tempest / Cripple',
+		['q'] = 'Sonic Wave',
+		['w'] = 'Safeguard',
+		['e'] = 'Tempest',
 		['r'] = 'Dragon\'s Rage',
+		['q2'] = 'Resonating Strike',
+		['w2'] = 'Iron Will',
+		['e2'] = 'Cripple',
 	},
 	['leona'] = {
 		['q'] = 'Shield of Daybreak',
@@ -416,10 +447,13 @@ local spellNames = {
 		['r'] = 'Depth Charge',
 	},
 	['nidalee'] = {
-		['q'] = 'Javelin Toss / Takedown',
-		['w'] = 'Bushwhack / Pounce',
-		['e'] = 'Primal Surge / Swipe',
+		['q'] = 'Javelin Toss',
+		['w'] = 'Bushwhack',
+		['e'] = 'Primal Surge',
 		['r'] = 'Aspect Of The Cougar',
+		['q2'] = 'Takedown',
+		['w2'] = 'Pounce',
+		['e2'] = 'Swipe',
 	},
 	['nocturne'] = {
 		['q'] = 'Duskbringer',
@@ -470,10 +504,13 @@ local spellNames = {
 		['r'] = 'Tremors',
 	},
 	['reksai'] = {
-		['q'] = 'Queen\'s Wrath / Prey Seeker',
-		['w'] = 'Burrow / Un-burrow',
-		['e'] = 'Furious Bite / Tunnel',
+		['q'] = 'Queen\'s Wrath',
+		['w'] = 'Burrow',
+		['e'] = 'Furious Bite',
 		['r'] = 'Void Rush',
+		['q2'] = 'Prey Seeker',
+		['w2'] = 'Un-burrow',
+		['e2'] = 'Tunnel',
 	},
 	['renekton'] = {
 		['q'] = 'Cull the Meek',
