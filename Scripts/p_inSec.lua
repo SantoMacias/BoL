@@ -1,5 +1,21 @@
 -- LoL Patch: 5.14
 -- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
+
+local sVersion = '1.0';
+local rVersion = GetWebResult('raw.githubusercontent.com', '/pvpsuite/BoL/master/Versions/Scripts/p_inSec.version?no-cache=' .. math.random(1, 25000));
+
+if ((rVersion) and (tonumber(rVersion) ~= nil)) then
+	if (tonumber(sVersion) < tonumber(rVersion)) then
+		print('<font color="#FF1493"><b>[p_inSec]</b> </font><font color="#FFFF00">An update has been found and it is now downloading!</font>');
+		DownloadFile('https://raw.githubusercontent.com/pvpsuite/BoL/master/Scripts/p_inSec.lua?no-cache=' .. math.random(1, 25000), (SCRIPT_PATH.. GetCurrentEnv().FILE_NAME), function()
+			print('<font color="#FF1493"><b>[p_inSec]</b> </font><font color="#00FF00">Script successfully updated, please double-press F9 to reload!</font>');
+		end);
+		return;
+	end;
+else
+	print('<font color="#FF1493"><b>[p_inSec]</b> </font><font color="#FF0000">Update Error</font>');
+end;
+
 if (not VIP_USER) then
 	print('<font color="#FF1493"><b>[p_inSec]</b> </font><font color="#FF0000">Non-VIP Not Supported</font>');
 	return;
