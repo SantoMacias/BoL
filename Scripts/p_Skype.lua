@@ -1,5 +1,21 @@
 -- LoL Patch: 5.14 (Irrelevant)
 -- Developer: PvPSuite (http://forum.botoflegends.com/user/76516-pvpsuite/)
+
+local sVersion = '1.0';
+local rVersion = GetWebResult('raw.githubusercontent.com', '/pvpsuite/BoL/master/Versions/Scripts/p_Skype.version?no-cache=' .. math.random(1, 25000));
+
+if ((rVersion) and (tonumber(rVersion) ~= nil)) then
+	if (tonumber(sVersion) < tonumber(rVersion)) then
+		print('<font color="#FF1493"><b>[p_Skype]</b> </font><font color="#FFFF00">An update has been found and it is now downloading!</font>');
+		DownloadFile('https://raw.githubusercontent.com/pvpsuite/BoL/master/Scripts/p_Skype.lua?no-cache=' .. math.random(1, 25000), (SCRIPT_PATH.. GetCurrentEnv().FILE_NAME), function()
+			print('<font color="#FF1493"><b>[p_Skype]</b> </font><font color="#00FF00">Script successfully updated, please double-press F9 to reload!</font>');
+		end);
+		return;
+	end;
+else
+	print('<font color="#FF1493"><b>[p_Skype]</b> </font><font color="#FF0000">Update Error</font>');
+end;
+
 if (not FileExist(BOL_PATH .. 'p_SkypeHelper.exe')) then
 	print('<font color="#FF1493"><b>[p_Skype]</b> </font><font color="#FF0000">Skype Helper Not Found</font>');
 	return;
@@ -101,6 +117,7 @@ function OnDraw()
 			if (theMenu.drawH > (WINDOW_H - backgroundH)) then
 				theMenu.drawH = (WINDOW_H - backgroundH);
 			end;
+			
 			if (background10Sprite ~= nil) then
 				background10Sprite:Draw(theMenu.drawW, theMenu.drawH, theMenu.widgetOpacity);
 			end;
@@ -113,8 +130,9 @@ function OnDraw()
 					if (mTable['mSender']:len() > 20) then
 						fullMessage = mTable['sUsername'] .. ': ' .. mTable['sMessage'];
 					end;
+					
 					if (fullMessage:len() >= 52) then
-						fullMessage = fullMessage:sub(1, 52)
+						fullMessage = fullMessage:sub(1, 52);
 						fullMessage = replaceChar(fullMessage:len(), fullMessage, '.');
 						fullMessage = replaceChar(fullMessage:len() - 1, fullMessage, '.');
 						fullMessage = replaceChar(fullMessage:len() - 2, fullMessage, '.');
