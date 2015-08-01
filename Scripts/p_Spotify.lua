@@ -223,6 +223,9 @@ function reloadPlayer()
 	volumeUpSprite = createSprite('p_Spotify\\volumeup.png');
 	volumeDownSprite = createSprite('p_Spotify\\volumedown.png');
 	backgroundSprite = createSprite('p_Spotify\\background.png');
+	
+	sleepDelay = 200;
+	lastTimeActionCalled = GetTickCount();
 end;
 
 function nextTrack()
