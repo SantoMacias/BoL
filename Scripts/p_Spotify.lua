@@ -94,6 +94,11 @@ function OnTick()
 				suspendPlayer = true;
 				print('<font color="#FF1493"><b>[p_Spotify]</b> </font><font color="#FF0000">Could Not Read Song</font>');
 			end;
+			
+			if (not readyToShow) then
+				readyToShow = true;
+				print('<font color="#FF1493"><b>[p_Spotify]</b> </font><font color="#FFA500">Spotify Player Reloaded</font>');
+			end;
 		end;
 		
 		if (theMenu.reloadPlayer) then
@@ -218,7 +223,6 @@ function reloadPlayer()
 	volumeUpSprite = createSprite('p_Spotify\\volumeup.png');
 	volumeDownSprite = createSprite('p_Spotify\\volumedown.png');
 	backgroundSprite = createSprite('p_Spotify\\background.png');
-	readyToShow = true;
 	
 	print('<font color="#FF1493"><b>[p_Spotify]</b> </font><font color="#FFA500">Spotify Player Reloaded</font>');
 end;
