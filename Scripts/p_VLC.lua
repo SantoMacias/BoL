@@ -91,6 +91,11 @@ function OnTick()
 				suspendPlayer = true;
 				print('<font color="#FF1493"><b>[p_VLC]</b> </font><font color="#FF0000">Could Not Read Song</font>');
 			end;
+			
+			if (not readyToShow) then
+				readyToShow = true;
+				print('<font color="#FF1493"><b>[p_VLC]</b> </font><font color="#FFA500">VLC Player Reloaded</font>');
+			end;
 		end;
 		
 		if (theMenu.reloadPlayer) then
@@ -225,9 +230,9 @@ function reloadPlayer()
 	volumeUpSprite = createSprite('p_VLC\\volumeup.png');
 	volumeDownSprite = createSprite('p_VLC\\volumedown.png');
 	backgroundSprite = createSprite('p_VLC\\background.png');
-	readyToShow = true;
 	
-	print('<font color="#FF1493"><b>[p_VLC]</b> </font><font color="#FFA500">VLC Player Reloaded</font>');
+	sleepDelay = 200;
+	lastTimeActionCalled = GetTickCount();
 end;
 
 function nextTrack()
