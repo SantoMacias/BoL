@@ -86,7 +86,6 @@ function OnTick()
 		readLastMessages();
 		if (not readyToShow) then
 			readyToShow = true;
-			
 			print('<font color="#FF1493"><b>[p_Skype]</b> </font><font color="#FFA500">Skype Widget Reloaded</font>');
 		end;
 	end;
