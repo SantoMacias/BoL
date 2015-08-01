@@ -1,1 +1,1 @@
-Script versions lay here for the auto update feature.
+Scripts and Scripts/Common versions lay here for the auto update feature.
